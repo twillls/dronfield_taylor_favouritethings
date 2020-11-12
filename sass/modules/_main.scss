@@ -1,0 +1,16 @@
+body {
+    background-color: $bgc;
+    
+    h2 { 
+        font-family: 'Abril Fatface', cursive; 
+        margin: auto;
+        text-align: center;
+        margin-top: 5vh;
+    }
+
+    p {
+        font-family: 'Nunito', sans-serif;
+    }
+}
+
+.hidden { display: none; }
