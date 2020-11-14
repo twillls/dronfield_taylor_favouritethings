@@ -7,7 +7,7 @@
    function getAllUsers($conn) {
         // include("connect.php");  // like a JS import statement
 
-        $query = "SELECT * FROM profdata";
+        $query = "SELECT * FROM tbl_things";
 
         $runQuery = $conn->query($query);
 
@@ -27,7 +27,7 @@
    function getSingleUser($conn, $id) {
         // include("connect.php");  // like a JS import statement
 
-        $query = "SELECT * FROM profdata WHERE id=" . $id . "";
+        $query = "SELECT * FROM tbl_things WHERE id=" . $id . "";
 
         $runQuery = $pdo->query($query);
 

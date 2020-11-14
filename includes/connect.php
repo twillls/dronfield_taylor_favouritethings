@@ -1,7 +1,7 @@
 <?php 
     $db_dsn = array( 
         'host' => 'localhost',
-        'dbname' => '',
+        'dbname' => 'db_favouritethings',
         'charset' => 'utf8'
     );
 

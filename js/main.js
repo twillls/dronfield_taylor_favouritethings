@@ -7,18 +7,47 @@ import {fetchData} from "./modules/dataMiner.js";
     //     console.log("Handling!");
     // }
 
-    function retrieveProjectInfo(event) {
-        // console.log(event.target.id);
-        // debugger;
+    let button = document.querySelector("#splashbutton");
+
+    button.addEventListener("click", closeSplash)
+
+    function closeSplash(event){
+        console.log("Closing Splash");
+
+        var splash = document.getElementById("splash");
+        splash.classList.toggle("hidden");
+    }
+
+    function popOver(event) {
+        //console.log(event.target.id);
+        //debugger;
 
         // check for an ID, if there isn't one, dont try fetch call (it would break)
         if (!event.target.id) { return };
 
-        fetchData(`./includes/index.php?id=${event.target.id}`).then(data => console.log(data)).catch(err => console.log(err));
+        function renderPopOver(things){
+            let popOverInfo = document.querySelector(".popOverSection"),
+            popOverTemplate = document.querySelector("#popOver-template").content;
+
+            let currentPopOver = popOverTemplate.cloneNode(true),
+                currentPopOverInfo = currentPopOver.querySelector('.popOver').children;
+        
+
+            currentPopOverInfo[0].innerHTML = `${things[thing].name}`;
+            currentPopOverInfo[1].innerHTML = `${things[thing].info}`;
+            currentPopOverInfo[2].innerHTML = `${things[thing].rating}`;
+            
+            // add user to the view
+            popOverInfo.appendChild(currentPopOver);
+        }
+
+        fetchData(`./includes/index.php?id=${event.target.id}`).then(data => renderPopOver(data)).catch(err => console.log(err));
     }
+
 
     function renderThings(things) {
         let thingsSection = document.querySelector(".thingsSection"),
+            
             // Cannot reference template itself, need to select the content inside specifically
             thingsTemplate = document.querySelector("#things-template").content;
 
@@ -26,21 +55,23 @@ import {fetchData} from "./modules/dataMiner.js";
 
             // clone the template, do a DEEP CLONE - taking the user div and copying it. A deep clone uses (true) to go inside the referenced node and find all the children inside it.
             let currentThing = thingsTemplate.cloneNode(true),
-                currentThingInfo = currentThing.querySelector('.things').children; 
+                currentThingInfo = currentThing.querySelector('.things').children, 
+                currentThingId = currentThing.querySelector('.things');
                 // grabs all the children to utilize in the next statement
 
-            currentThingInfo[1].src = `images/${things[thing].avatar}`;
-            currentThingInfo[2].textContent = `${things[thing].name}`;
-            currentThingInfo[1].id = things[thing].name;
+            //currentThingInfo[0].src = `images/${things[thing].avatar}`;
+            currentThingInfo[0].innerHTML = `${things[thing].name}`;
+            currentThingId.id = things[thing].name;
             
             // add user to the view
             thingsSection.appendChild(currentThing);
         }
 
         // adding a click event to the user Section wrapper
-        thingsSection.addEventListener("click", retrieveProjectInfo);
+        
+        thingsSection.addEventListener("click", popOver);
     }
 
 
-    fetchData('./dataset.json').then(data => renderThings(data)).catch(err => console.log(err));
+    fetchData('./includes/index.php').then(data => renderThings(data)).catch(err => console.log(err));
 })();
