@@ -1,0 +1,6 @@
+{
+    "coffee":{"name":"Coffee","info":"Only the darkest and hottest coffee shall suffice! It is my life line!","rating":"100 pots of coffee out of 10","avatar":"coffee.jpg"},
+    "david":{"name":"David","info":"My son. My pride and joy. He is not fat, he is fluffy.","rating":"10 thousand cat nips out of 10","avatar":"david.jpg"},
+    "skate":{"name":"Skateboarding","info":"Cruisin' for a bruisin'! No broken bones.. yet.","rating":"10 kickflips out of 10","avatar":"skate.jpg"}
+    
+  }
