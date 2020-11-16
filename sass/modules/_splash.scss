@@ -6,13 +6,12 @@
     background-color: black;
     margin: auto;
     padding-top: 20%;
-    
-
-    h2 { 
+   
+        h2 { 
         color: white;
-    }
+        }
 
-    button {
+        button {
         border: none;
         color: white;
         background: none;
@@ -20,5 +19,25 @@
         text-align: center;
         display: block;
         padding: 5px;
+        animation-name: fadeout;
+        animation-duration: 3s;
+        animation-play-state: paused;
+        animation-iteration-count: 1;
+        }
+
+        button:focus {
+            outline: none;
+        }
+    } 
+
+    @keyframes fadeout{
+        0% {
+            opacity: 100;
+        }
+
+        100% {
+            opacity: 0;
+        }
     }
-}
+
+    

@@ -60,7 +60,10 @@ import {fetchData} from "./modules/dataMiner.js";
                 // grabs all the children to utilize in the next statement
 
             //currentThingInfo[0].src = `images/${things[thing].avatar}`;
-            currentThingInfo[0].innerHTML = `${things[thing].name}`;
+            currentThingInfo[0].src = `images/${things[thing].avatar}`;
+            currentThingInfo[1].innerHTML = `${things[thing].name}`;
+            currentThingInfo[2].innerHTML = `${things[thing].info}`;
+            currentThingInfo[3].innerHTML = `${things[thing].rating}`;
             currentThingId.id = things[thing].name;
             
             // add user to the view
