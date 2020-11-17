@@ -1,0 +1,21 @@
+.popOverSection {
+    position: absolute;
+    z-index: 5;
+    width: 100vw; 
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 50px 20px;
+    
+    p { 
+        color: white;
+        text-align: center;
+        padding: 10px; 
+    }
+    
+    #exit {
+        font-size: 1.2em;
+    }
+
+    #exit:hover { text-decoration: underline;}
+
+}

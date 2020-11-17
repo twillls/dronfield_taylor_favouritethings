@@ -8,8 +8,7 @@ import {fetchData} from "./modules/dataMiner.js";
     // }
 
     let button = document.querySelector("#splashbutton");
-
-    button.addEventListener("click", closeSplash)
+    button.addEventListener("click", closeSplash);
 
     function closeSplash(event){
         console.log("Closing Splash");
@@ -18,15 +17,33 @@ import {fetchData} from "./modules/dataMiner.js";
         splash.classList.toggle("hidden");
     }
 
-    function popOver(event) {
-        //console.log(event.target.id);
-        //debugger;
+    let exit = document.querySelector("#exit");
+    exit.addEventListener("click", closePopOver);
+    
+    function closePopOver(event){
+        console.log("Closing PopOver");
+
+        var exitpopover = document.getElementById("popOver");
+        exitpopover.classList.toggle("hidden");
+    }
+
+
+
+    function openLightbox(){
+        debugger;
+        var popOver = document.getElementById("popOver");
+        popOver.classList.toggle("hidden");
+    }
+
+    function retrieveProjectInfo(event, things) {
+        console.log(event.this.id);
+        debugger;
 
         // check for an ID, if there isn't one, dont try fetch call (it would break)
-        if (!event.target.id) { return };
+        // if (!event.target.id) { return };
+        // debugger;
 
-        function renderPopOver(things){
-            let popOverInfo = document.querySelector(".popOverSection"),
+        let popOverInfo = document.querySelector(".popOverSection"),
             popOverTemplate = document.querySelector("#popOver-template").content;
 
             let currentPopOver = popOverTemplate.cloneNode(true),
@@ -39,10 +56,35 @@ import {fetchData} from "./modules/dataMiner.js";
             
             // add user to the view
             popOverInfo.appendChild(currentPopOver);
-        }
 
-        fetchData(`./includes/index.php?id=${event.target.id}`).then(data => renderPopOver(data)).catch(err => console.log(err));
+        fetchData(`./includes/index.php?id=${event.target.id}`).then(openLightbox()).catch(err => console.log(err));
     }
+
+    // function popOver(event) {
+    //     //console.log(event.target.id);
+    //     //debugger;
+
+    //     // check for an ID, if there isn't one, dont try fetch call (it would break)
+    //     if (!event.target.id) { return };
+
+    //     function renderPopOver(things){
+    //         let popOverInfo = document.querySelector(".popOverSection"),
+    //         popOverTemplate = document.querySelector("#popOver-template").content;
+
+    //         let currentPopOver = popOverTemplate.cloneNode(true),
+    //             currentPopOverInfo = currentPopOver.querySelector('.popOver').children;
+        
+
+    //         currentPopOverInfo[0].innerHTML = `${things[thing].name}`;
+    //         currentPopOverInfo[1].innerHTML = `${things[thing].info}`;
+    //         currentPopOverInfo[2].innerHTML = `${things[thing].rating}`;
+            
+    //         // add user to the view
+    //         popOverInfo.appendChild(currentPopOver);
+    //     }
+
+    //     fetchData(`./includes/index.php?id=${event.target.id}`).then(data => renderPopOver(data)).catch(err => console.log(err));
+    // }
 
 
     function renderThings(things) {
@@ -64,15 +106,19 @@ import {fetchData} from "./modules/dataMiner.js";
             currentThingInfo[1].innerHTML = `${things[thing].name}`;
             currentThingInfo[2].innerHTML = `${things[thing].info}`;
             currentThingInfo[3].innerHTML = `${things[thing].rating}`;
-            currentThingId.id = things[thing].name;
+            currentThingId.id = things[thing].idname;
             
             // add user to the view
             thingsSection.appendChild(currentThing);
         }
 
-        // adding a click event to the user Section wrapper
-        
-        thingsSection.addEventListener("click", popOver);
+        // adding a click event to each DIV
+
+        let thingsDivs = document.querySelectorAll("div.things");
+       // thingsDivs.addEventListener("click", retrieveProjectInfo);
+        thingsDivs.forEach(function(divs) {
+            divs.addEventListener("click", retrieveProjectInfo);
+          });
     }
 
 
