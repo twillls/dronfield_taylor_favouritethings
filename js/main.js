@@ -17,15 +17,15 @@ import {fetchData} from "./modules/dataMiner.js";
         splash.classList.toggle("hidden");
     }
 
-    let exit = document.querySelector("#exit");
-    exit.addEventListener("click", closePopOver);
+    // let exit = document.querySelector("#exit");
+    // exit.addEventListener("click", closePopOver);
     
-    function closePopOver(event){
-        console.log("Closing PopOver");
+    // function closePopOver(event){
+    //     console.log("Closing PopOver");
 
-        var exitpopover = document.getElementById("popOver");
-        exitpopover.classList.toggle("hidden");
-    }
+    //     var exitpopover = document.getElementById("popOver");
+    //     exitpopover.classList.toggle("hidden");
+    // }
 
 
 
@@ -36,18 +36,19 @@ import {fetchData} from "./modules/dataMiner.js";
     }
 
     function retrieveProjectInfo(event, things) {
-        console.log(event.this.id);
+        console.log(event.target.id);
         debugger;
 
         // check for an ID, if there isn't one, dont try fetch call (it would break)
         // if (!event.target.id) { return };
         // debugger;
+        for (let thing in things) {
 
-        let popOverInfo = document.querySelector(".popOverSection"),
+        let popOverSection = document.querySelector(".popOverSection"),
             popOverTemplate = document.querySelector("#popOver-template").content;
 
-            let currentPopOver = popOverTemplate.cloneNode(true),
-                currentPopOverInfo = currentPopOver.querySelector('.popOver').children;
+        let currentPopOver = popOverTemplate.cloneNode(true),
+            currentPopOverInfo = currentPopOver.querySelector(".popOver").children;
         
 
             currentPopOverInfo[0].innerHTML = `${things[thing].name}`;
@@ -55,7 +56,8 @@ import {fetchData} from "./modules/dataMiner.js";
             currentPopOverInfo[2].innerHTML = `${things[thing].rating}`;
             
             // add user to the view
-            popOverInfo.appendChild(currentPopOver);
+            popOverSection.appendChild(currentPopOver);
+        }
 
         fetchData(`./includes/index.php?id=${event.target.id}`).then(openLightbox()).catch(err => console.log(err));
     }
@@ -106,7 +108,7 @@ import {fetchData} from "./modules/dataMiner.js";
             currentThingInfo[1].innerHTML = `${things[thing].name}`;
             currentThingInfo[2].innerHTML = `${things[thing].info}`;
             currentThingInfo[3].innerHTML = `${things[thing].rating}`;
-            currentThingId.id = things[thing].idname;
+            currentThingId.id = things[thing].id;
             
             // add user to the view
             thingsSection.appendChild(currentThing);
